@@ -7,7 +7,7 @@ class Hammock(object):
 
     HTTP_METHODS = ['get', 'options', 'head', 'post', 'put', 'patch', 'delete']
 
-    def __init__(self, name=None, parent=None, append_slash=False, **kwargs):
+    def __init__(self, name=None, parent=None, append_slash=False, session=None, **kwargs):
         """Constructor
 
         Arguments:
@@ -19,7 +19,7 @@ class Hammock(object):
         self._name = name
         self._parent = parent
         self._append_slash = append_slash
-        self._session = requests.session()
+        self._session = session or requests.Session()
         for k, v in kwargs.items():
             orig = getattr(self._session, k)  # Let it throw exception
             if isinstance(orig, dict):
